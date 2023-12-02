@@ -1,0 +1,28 @@
+a
+b
+c
+t
+inicio:
+add %RPG1 %RPG1 
+add a %RPG1
+add %RPG1 a
+sub %RPG1 %RPG1
+sub a %RPG1
+sub %RPG1 a
+move a %RPG1
+outro:
+call inicio
+move %RPG1 a
+move %RPG1 %RPG1
+move 13 %RPG1
+inc %RPG1
+ret
+inc b
+jmp inicio
+jn inicio
+jz outro
+jnz outro
+jeq %RPG2 %RPG1 t
+jgt %RPG2 %RPG1 t
+maisOutro:
+jlw %RPG2 %RPG1 t
