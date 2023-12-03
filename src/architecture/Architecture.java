@@ -1,5 +1,7 @@
 package architecture;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -1008,7 +1010,54 @@ public class Architecture {
 		ir.read();
 		
 		pc.store();
-	}	
+	}
+	
+	public void call() {
+		//pc++
+		pc.internalRead();
+		ula.store(1);
+		ula.inc();
+		ula.read(1);
+		pc.internalStore();
+		
+		pc.read();
+		memory.read();
+		ir.store();
+		ir.internalRead();
+		ula.internalStore(0);
+		
+		stack_top.read();
+		memory.store();
+		
+		ula.inc();
+		ula.internalRead(1);
+		ir.internalStore();
+		ir.read();
+		memory.store();
+		
+		ula.read(0);
+		pc.internalStore();
+		
+		stack_top.internalRead();
+		ula.store(0);
+		intbus1.put(1);
+		ula.store(1);
+		ula.sub();
+		ula.read(1);
+		stack_top.internalStore();
+	}
+	
+	public void ret() {
+		stack_top.internalRead();
+		ula.store(1);
+		ula.inc();
+		ula.read(1);
+		stack_top.internalStore();
+		
+		stack_top.read();
+		memory.read();
+		pc.store();
+	}
 	
 	public ArrayList<Register> getRegistersList() {
 		return registersList;

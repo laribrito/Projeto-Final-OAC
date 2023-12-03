@@ -388,6 +388,11 @@ public class Assembler {
 		execProgram.add(3, Integer.toString(commands.indexOf("moveImmReg")));
 		execProgram.add(4, Integer.toString(inicioPilha));
 		execProgram.add(5, Integer.toString(searchRegisterId("stkBottom", arch.getRegistersList())));
+		
+		//corrige os endereços dos labels
+		for(int x = 0; x<labelsAdresses.size(); x++) {
+			labelsAdresses.set(x, labelsAdresses.get(x) + 6);
+		}
 	}
 
 	/**

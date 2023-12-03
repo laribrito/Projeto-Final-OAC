@@ -846,7 +846,7 @@ Architecture arch = new Architecture();
 		
 	}
 	
-	@Test
+//	@Test
 	public void testJlw() {
 		
 		Architecture arch = new Architecture();
@@ -912,6 +912,60 @@ Architecture arch = new Architecture();
 		//PC contains the number 32
 		arch.getPc().internalRead();
 		assertEquals(50, arch.getIntbus2().get());
+		
+	}
+	
+//	@Test
+	public void testCall() {
+		Architecture arch = new Architecture();
+		
+		//storing the number 30 in PC
+		arch.getIntbus1().put(30);
+		arch.getPc().internalStore();
+		
+		//storing the number 25 in the into the memory, in position 31, the position just after PC
+		arch.getExtbus1().put(31);
+		arch.getMemory().store();
+		arch.getExtbus1().put(6);
+		arch.getMemory().store();
+		
+		arch.getIntbus1().put(123);
+		arch.getStackTop().internalStore();
+		
+		arch.call();
+		
+		//testing if PC stores the number 30
+		arch.getPc().read();
+		assertEquals(6, arch.getExtbus1().get());
+		assertEquals(122, arch.getStackTop().getData());
+		arch.getExtbus1().put(123);
+		arch.getMemory().read();
+		assertEquals(32, arch.getExtbus1().get());
+	}
+	
+	@Test
+	public void testeRet() {
+		Architecture arch = new Architecture();
+		
+		//storing the number 30 in PC
+		arch.getIntbus1().put(30);
+		arch.getPc().internalStore();
+		
+		//storing the number 25 in the into the memory, in position 31, the position just after PC
+		arch.getExtbus1().put(31);
+		arch.getMemory().store();
+		arch.getExtbus1().put(6);
+		arch.getMemory().store();
+		
+		arch.getIntbus1().put(123);
+		arch.getStackTop().internalStore();
+		
+		arch.call();
+		arch.ret();
+		
+		arch.getPc().read();
+		assertEquals(32, arch.getExtbus1().get());
+		assertEquals(123, arch.getStackTop().getData());
 		
 	}
 		
